@@ -7,7 +7,7 @@ import android.widget.Toast;
 public class RootBranch implements Branch {
     @Override
     public String[] getCommands() {
-        String[] ret = {"Twitter", "SendGrid", "Domino's Pizza"};
+        String[] ret = {"Twitter", "SendGrid"};
         return ret;
     }
 
@@ -17,7 +17,7 @@ public class RootBranch implements Branch {
             TwitterBranch tb = new TwitterBranch();
             activity.setBranch(tb);
             if(command.toLowerCase().contains("tweet")) {
-                String subcommand = command.substring(command.indexOf("tweet"));
+                String subcommand = command.substring(command.toLowerCase().indexOf("tweet"));
                 tb.parseCommand(subcommand, activity);
             }
             return true;
