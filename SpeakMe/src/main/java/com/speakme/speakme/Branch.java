@@ -10,5 +10,5 @@ public interface Branch {
     public String[] getCommands();
 
     //Parses a command and performs action
-    public boolean parseCommand(String command, Context ctx);
+    public boolean parseCommand(String command, MainActivity activity);
 }

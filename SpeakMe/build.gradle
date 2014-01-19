@@ -23,4 +23,6 @@ android {
 }
 
 dependencies {
+    compile files('src/twitter4j-core-3.0.5.jar')
+    compile files('src/sendgrid-0.1.2-jar.jar')
 }

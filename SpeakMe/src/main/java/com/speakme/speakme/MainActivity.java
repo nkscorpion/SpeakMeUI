@@ -53,20 +53,20 @@ public class MainActivity extends Activity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(m_bound) {
-                    Intent intent = new Intent(
-                            RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                m_speakMeReader.stopSpeaking();
 
-                    intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+                Intent intent = new Intent(
+                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 
-                    try {
-                        startActivityForResult(intent, RESULT_SPEECH);
-                    } catch (ActivityNotFoundException a) {
-                        Toast t = Toast.makeText(getApplicationContext(),
-                                "Opps! Your device doesn't support Speech to Text",
-                                Toast.LENGTH_SHORT);
-                        t.show();
-                    }
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+
+                try {
+                    startActivityForResult(intent, RESULT_SPEECH);
+                } catch (ActivityNotFoundException a) {
+                    Toast t = Toast.makeText(getApplicationContext(),
+                            "Opps! Your device doesn't support Speech to Text",
+                            Toast.LENGTH_SHORT);
+                    t.show();
                 }
             }
         });
@@ -122,7 +122,7 @@ public class MainActivity extends Activity {
                     ArrayList<String> text = data
                         .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-                    String voice_command = Arrays.toString(text.toArray()).replace(", ", " ").replaceAll("[\\[\\]]", "");
+                    String voice_command = text.get(0);
 
                     if(voice_command.equalsIgnoreCase("speak me") || voice_command.equalsIgnoreCase("speakme"))
                         m_currentBranch = new RootBranch();
@@ -143,5 +143,9 @@ public class MainActivity extends Activity {
                 break;
             }
         }
+    }
+
+    public void setBranch(Branch branch) {
+        m_currentBranch = branch;
     }
 }
